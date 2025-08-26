@@ -19,9 +19,19 @@ const ResultsDashboard = ({ results, isLoading, error }) => {
   // 1. Handle loading state
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 space-y-4">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-        <p className="text-gray-600">Generating energy prediction...</p>
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/60 p-12">
+        <div className="flex flex-col items-center justify-center space-y-6">
+          <div className="relative">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
+              <Loader2 className="w-8 h-8 animate-spin text-white" />
+            </div>
+            <div className="absolute inset-0 w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full animate-ping opacity-20"></div>
+          </div>
+          <div className="text-center">
+            <p className="text-lg font-semibold text-slate-800 mb-2">Generating Energy Prediction</p>
+            <p className="text-slate-600">Analyzing your solar system configuration...</p>
+          </div>
+        </div>
       </div>
     );
   }
@@ -29,10 +39,16 @@ const ResultsDashboard = ({ results, isLoading, error }) => {
   // 2. Handle error state
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 space-y-4 text-red-500">
-        <AlertTriangle className="w-12 h-12" />
-        <p className="text-lg font-medium">An Error Occurred</p>
-        <p className="text-sm text-center">{error}</p>
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-red-200/60 p-12">
+        <div className="flex flex-col items-center justify-center space-y-6 text-red-600">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+            <AlertTriangle className="w-8 h-8" />
+          </div>
+          <div className="text-center">
+            <p className="text-lg font-semibold text-red-800 mb-2">Prediction Failed</p>
+            <p className="text-sm text-red-600 max-w-md">{error}</p>
+          </div>
+        </div>
       </div>
     );
   }
@@ -40,12 +56,18 @@ const ResultsDashboard = ({ results, isLoading, error }) => {
   // 3. Handle initial empty state
   if (!results) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 space-y-4 text-gray-500">
-        <BarChart3 className="w-12 h-12" />
-        <p className="text-lg font-medium">No prediction results yet</p>
-        <p className="text-sm text-center">
-          Configure your solar system and click "Generate Energy Prediction" to see results.
-        </p>
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/60 p-12">
+        <div className="flex flex-col items-center justify-center space-y-6 text-slate-500">
+          <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
+            <BarChart3 className="w-8 h-8" />
+          </div>
+          <div className="text-center">
+            <p className="text-lg font-semibold text-slate-800 mb-2">Ready for Analysis</p>
+            <p className="text-sm text-slate-600 max-w-md">
+              Configure your solar system parameters and generate a prediction to view detailed energy forecasts and performance metrics.
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
@@ -84,61 +106,139 @@ const ResultsDashboard = ({ results, isLoading, error }) => {
 
   // 5. Finally, return the JSX to display the dashboard
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-8 animate-fade-in">
+      {/* Dashboard Header */}
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-lg p-6 text-white">
+        <h2 className="text-2xl font-bold mb-2">Energy Prediction Results</h2>
+        <p className="text-blue-100">Comprehensive analysis of your solar system performance</p>
+      </div>
+      
       {/* Key Metrics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Annual Energy</CardTitle>
-            <Zap className="h-4 w-4 text-yellow-600" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card className="shadow-lg border-slate-200/60 bg-gradient-to-br from-green-50 to-emerald-50 hover:shadow-xl transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-semibold text-slate-700">Annual Energy Production</CardTitle>
+            <div className="p-2 bg-green-100 rounded-lg">
+              <Zap className="h-5 w-5 text-green-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-3xl font-bold text-green-700 mb-1">
               {safeToFixed(annualEnergy, 2)} kWh
             </div>
+            <p className="text-xs text-green-600 font-medium">Total yearly output</p>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Performance Ratio</CardTitle>
-            <TrendingUp className="h-4 w-4 text-blue-600" />
+        
+        <Card className="shadow-lg border-slate-200/60 bg-gradient-to-br from-blue-50 to-indigo-50 hover:shadow-xl transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-semibold text-slate-700">Performance Ratio</CardTitle>
+            <div className="p-2 bg-blue-100 rounded-lg">
+              <TrendingUp className="h-5 w-5 text-blue-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-3xl font-bold text-blue-700 mb-1">
               {safeToFixed(results.performance_ratio * 100, 1)}%
             </div>
+            <p className="text-xs text-blue-600 font-medium">System efficiency</p>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Peak Month</CardTitle>
-            <Calendar className="h-4 w-4 text-orange-600" />
+        
+        <Card className="shadow-lg border-slate-200/60 bg-gradient-to-br from-orange-50 to-amber-50 hover:shadow-xl transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-semibold text-slate-700">Peak Production Month</CardTitle>
+            <div className="p-2 bg-orange-100 rounded-lg">
+              <Calendar className="h-5 w-5 text-orange-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">{peakMonthName}</div>
-            <p className="text-xs text-muted-foreground">{safeToFixed(peakMonthValue, 0)} kWh</p>
+            <div className="text-3xl font-bold text-orange-700 mb-1">{peakMonthName}</div>
+            <p className="text-xs text-orange-600 font-medium">{safeToFixed(peakMonthValue, 0)} kWh peak output</p>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Losses</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-red-600" />
+        
+        <Card className="shadow-lg border-slate-200/60 bg-gradient-to-br from-red-50 to-rose-50 hover:shadow-xl transition-all duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-semibold text-slate-700">System Losses</CardTitle>
+            <div className="p-2 bg-red-100 rounded-lg">
+              <AlertTriangle className="h-5 w-5 text-red-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-red-600">{safeToFixed(totalLosses, 0)} kWh</div>
-            <p className="text-xs text-muted-foreground">{safeToFixed(systemEfficiency, 1)}% efficiency</p>
+            <div className="text-3xl font-bold text-red-700 mb-1">{safeToFixed(totalLosses, 0)} kWh</div>
+            <p className="text-xs text-red-600 font-medium">{safeToFixed(systemEfficiency, 1)}% overall efficiency</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Charts */}
-      <Card>
-        <CardHeader><CardTitle>Monthly Energy Production</CardTitle></CardHeader>
-        <CardContent><div className="h-80"><Bar data={monthlyChartData} options={{ responsive: true, maintainAspectRatio: false }} /></div></CardContent>
+      <Card className="shadow-lg border-slate-200/60 bg-white/80 backdrop-blur-sm">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl font-bold text-slate-900">Monthly Energy Production</CardTitle>
+          <CardDescription className="text-slate-600">Energy output throughout the year</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="h-80 p-4">
+            <Bar 
+              data={monthlyChartData} 
+              options={{ 
+                responsive: true, 
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: false
+                  }
+                },
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    grid: {
+                      color: 'rgba(148, 163, 184, 0.1)'
+                    }
+                  },
+                  x: {
+                    grid: {
+                      display: false
+                    }
+                  }
+                }
+              }} 
+            />
+          </div>
+        </CardContent>
       </Card>
-      <Card>
-        <CardHeader><CardTitle>Energy Loss Analysis</CardTitle></CardHeader>
-        <CardContent><div className="h-80 flex justify-center"><div className="w-full max-w-xs"><Doughnut data={lossChartData} options={{ responsive: true, maintainAspectRatio: false }} /></div></div></CardContent>
+      
+      <Card className="shadow-lg border-slate-200/60 bg-white/80 backdrop-blur-sm">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl font-bold text-slate-900">Energy Loss Analysis</CardTitle>
+          <CardDescription className="text-slate-600">Breakdown of system losses by category</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="h-80 flex justify-center p-4">
+            <div className="w-full max-w-sm">
+              <Doughnut 
+                data={lossChartData} 
+                options={{ 
+                  responsive: true, 
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: 'bottom',
+                      labels: {
+                        padding: 20,
+                        usePointStyle: true,
+                        font: {
+                          size: 12
+                        }
+                      }
+                    }
+                  }
+                }} 
+              />
+            </div>
+          </div>
+        </CardContent>
       </Card>
     </div>
   );

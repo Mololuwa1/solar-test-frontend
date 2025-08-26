@@ -6,7 +6,7 @@ const Label = ({
   children,
   ...props 
 }) => {
-  const baseClasses = 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+  const baseClasses = 'text-sm font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-slate-700'
   
   return (
     <label

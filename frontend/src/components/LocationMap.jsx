@@ -72,20 +72,25 @@ const LocationMap = ({ location, onLocationChange }) => {
   }, [latitude, longitude]);
 
   return (
-    <div className="space-y-2">
-      <label className="text-sm font-medium text-gray-700">
-        Click or drag marker to set location
-      </label>
+    <div className="bg-white rounded-2xl shadow-lg border border-slate-200/60 overflow-hidden backdrop-blur-sm">
+      <div className="p-6 border-b border-slate-100">
+        <h3 className="text-lg font-semibold text-slate-900 mb-1">System Location</h3>
+        <p className="text-sm text-slate-600">Click or drag the marker to set your installation location</p>
+      </div>
       <div 
         ref={mapRef} 
-        className="w-full h-64 rounded-lg border border-gray-300 overflow-hidden"
-        style={{ minHeight: '256px' }}
+        className="w-full h-80"
+        style={{ minHeight: '320px' }}
       />
-      <p className="text-xs text-gray-500">
-        {/* Add a check here just in case, for maximum safety */}
-        Current: {typeof latitude === 'number' ? latitude.toFixed(4) : 'N/A'}°, 
-        {typeof longitude === 'number' ? longitude.toFixed(4) : 'N/A'}°
-      </p>
+      <div className="p-4 bg-slate-50/50 border-t border-slate-100">
+        <div className="flex items-center justify-between text-xs">
+          <span className="text-slate-500 font-medium">Coordinates:</span>
+          <span className="font-mono text-slate-700 bg-white px-2 py-1 rounded border">
+            {typeof latitude === 'number' ? latitude.toFixed(4) : 'N/A'}°, 
+            {typeof longitude === 'number' ? longitude.toFixed(4) : 'N/A'}°
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

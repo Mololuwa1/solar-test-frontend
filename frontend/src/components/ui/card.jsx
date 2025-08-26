@@ -3,7 +3,7 @@ import React from 'react'
 const Card = ({ className = '', children, ...props }) => {
   return (
     <div
-      className={`rounded-lg border border-gray-200 bg-white text-gray-950 shadow-sm ${className}`}
+      className={`rounded-xl border border-slate-200 bg-white text-slate-950 shadow-sm hover:shadow-md transition-shadow duration-200 ${className}`}
       {...props}
     >
       {children}
@@ -13,7 +13,7 @@ const Card = ({ className = '', children, ...props }) => {
 
 const CardHeader = ({ className = '', children, ...props }) => {
   return (
-    <div className={`flex flex-col space-y-1.5 p-6 ${className}`} {...props}>
+    <div className={`flex flex-col space-y-1.5 p-6 pb-4 ${className}`} {...props}>
       {children}
     </div>
   )
@@ -22,7 +22,7 @@ const CardHeader = ({ className = '', children, ...props }) => {
 const CardTitle = ({ className = '', children, ...props }) => {
   return (
     <h3
-      className={`text-2xl font-semibold leading-none tracking-tight ${className}`}
+      className={`text-lg font-semibold leading-none tracking-tight text-slate-900 ${className}`}
       {...props}
     >
       {children}
@@ -32,7 +32,7 @@ const CardTitle = ({ className = '', children, ...props }) => {
 
 const CardDescription = ({ className = '', children, ...props }) => {
   return (
-    <p className={`text-sm text-gray-500 ${className}`} {...props}>
+    <p className={`text-sm text-slate-600 font-medium ${className}`} {...props}>
       {children}
     </p>
   )
